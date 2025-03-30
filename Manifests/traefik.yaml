@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+spec:
+  ingressClassName: traefik  # ✅ Preferred over `kubernetes.io/ingress.class`
+  rules:
+    - host: myapp.<your-loadbalancer-ip>.nip.io  # Use LoadBalancer's external IP
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-camapapp-service
+                port:
+                  number: 80
+
+

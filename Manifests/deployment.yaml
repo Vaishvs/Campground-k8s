@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mycamp-deployment
+  labels:
+    app: mycampapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mycampapp
+  template:
+    metadata:
+      labels:
+        app: mycampapp
+    spec:
+      containers:
+      - name: camp-container
+        image: 520868820355.dkr.ecr.ap-south-1.amazonaws.com/k8s/campground:latest
+        imagePullPolicy: Always
+        imagePullSecrets:
+        - name: ecr-registry-secret 
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /tmp/healthy
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+              - cat
+              - /tmp/healthy
+            initialDelaySeconds: 10
+            periodSeconds: 15
+
+---     
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-campapp-service
+  labels:
+    app: mycampapp
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    matchLabels:
+      app: mycampapp
+   

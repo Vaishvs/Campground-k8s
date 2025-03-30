@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: camp-config
+  labels:
+    app: mycampapp
+data:
+  DATABASE_URL: "mongodb+srv://vaishnavishinde4188:RJxb5esKN7PKdUTR@vaish-db.mu0ui.mongodb.net/?retryWrites=true&w=majority&appName=Vaish-db"
+  LOG_LEVEL: info
