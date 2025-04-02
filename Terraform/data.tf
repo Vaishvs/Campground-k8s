@@ -24,3 +24,13 @@ data "aws_internet_gateway" "default" {
     values = [data.aws_vpc.default.id]
   }
 }
+
+
+data "aws_subnet" "public_subnet_1" {
+  id = sort(data.aws_subnets.public_subnets.ids)[0]  # First public subnet
+}
+
+data "aws_subnet" "public_subnet_2" {
+  id = sort(data.aws_subnets.public_subnets.ids)[1]  # Second public subnet
+}
+

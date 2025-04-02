@@ -19,7 +19,7 @@ variable "node_group_name" {
 variable "allowed_ports" {
   description = "List of allowed ports"
   type        = list(string)
-  default     = ["22", "80", "25", "443", "8080", "3000", "6443", "465", "27017"]
+  default     = ["22", "80", "25", "443", "8080", "3000", "6443", "465", "27017", "32080"]
 }
 
 variable "region" {

@@ -24,7 +24,7 @@ resource "aws_security_group_rule" "allow_nodes_to_cluster" {
   source_security_group_id = aws_eks_cluster.my_cluster.vpc_config[0].cluster_security_group_id
 }
 
-#for range of 3000-10000
+#application is running on port 3000 that is y theis for range of 3000-10000
 resource "aws_security_group_rule" "allow_port_range" {
   type                     = "ingress"
   from_port                = 3000
@@ -32,4 +32,32 @@ resource "aws_security_group_rule" "allow_port_range" {
   protocol                 = "tcp"
   security_group_id        = aws_eks_cluster.my_cluster.vpc_config[0].cluster_security_group_id
   source_security_group_id = aws_eks_cluster.my_cluster.vpc_config[0].cluster_security_group_id
+  
+}
+
+resource "aws_security_group" "alb_sg" {
+  name        = "alb-security-group"
+  description = "Security group for ALB"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
