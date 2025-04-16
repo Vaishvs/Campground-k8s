@@ -1,9 +1,9 @@
 variable "cluster_name" {
-    type = string
+  type = string
 }
 
 variable "node_group_name" {
-    type = string
+  type = string
 }
 
 # variable "subnet_ids" {
@@ -16,20 +16,24 @@ variable "node_group_name" {
 #   default = [22, 80, 443, 25, 3000, 6443, 465, 27017] # List of ports to open
 # } 
 
-variable "allowed_ports" {
-  description = "List of allowed ports"
-  type        = list(string)
-  default     = ["22", "80", "25", "443", "8080", "3000", "6443", "465", "27017", "32080"]
-}
+# variable "allowed_ports" {
+#   description = "List of allowed ports"
+#   type        = list(string)
+#   default     = ["22", "80", "25", "443", "8080", "3000", "6443", "465", "27017", "32080"]
+# }
 
 variable "region" {
-    type = string
+  type = string
 }
 
 variable "access_key" {
-    type = string
+  type = string
 }
 
 variable "secret_key" {
-    type = string
+  type = string
+}
+
+variable "public_subnet_ids" {
+  type = list(string)
 }
